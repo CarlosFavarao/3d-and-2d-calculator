@@ -1,0 +1,50 @@
+.calculator-3d {
+    transform-style: preserve-3d;
+    position: relative;
+    width: 360px;
+    height: 436px;
+}
+
+.side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.front.side {
+    transform: translateZ(62px);
+}
+
+.back.side {
+    transform: translateZ(-60px);
+    background-color: gray;
+}
+
+.top.side {
+    transform: rotateX(90deg) translateZ(60px);
+    background-color: lightgray;
+    height: 120px;
+}
+
+.bottom.side {
+    transform: rotateX(90deg) translateZ(-60px);
+    background-color: darkgray;
+    height: 120px;
+}
+
+@keyframes rotate {
+    0% { transform: rotateX(10deg) rotateY(0deg)    ;}
+    25% { transform: rotateX(10deg) rotateY(90deg)  ;}
+    50% { transform: rotateX(10deg) rotateY(180deg) ;}
+    75% { transform: rotateX(10deg) rotateY(270deg) ;}
+    100% { transform: rotateX(10deg) rotateY(360deg);}
+}
+
+/* @keyframes rotate {
+    0% { transform: rotateX(-100deg) rotateY(0deg) ;}
+    100% { transform: rotateX(100deg) rotateY(0deg) ;}
+} */
+
+.container {
+    animation: rotate 10s infinite linear;
+}
