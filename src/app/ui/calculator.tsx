@@ -17,19 +17,36 @@ export default function Calculator() {
         setDisplay("0")
     }
 
-    const handleClick = (label: string) => {
-    if (!isNaN(Number(label)) || label === ".") {
-        setDisplay(prev => prev === "0" && label !== "." ? label : prev + label)
+    const addNumber = (label: string) => {
+        if (label === "." && display.includes(".")) {
+            return;
+        }
+
+        if (display === "Erro") {
+            clearDisplay();
+            setValues([Number(label), 0]);
+            setDisplay(label);
+            setCurrent(0);
+            return;
+        }
+
+        const newDisplay = (display === "0" && label !== ".") ? label : display + label;
+        setDisplay(newDisplay);
+
         setValues(prev => {
-            const newValues = [...prev]
-            newValues[current] = parseFloat((prev[current] === 0 && label !== "." ? "" : prev[current].toString()) + label)
-            return newValues
-        });
-    } else if (["+", "-", "*", "/"].includes(label)) {
-        setOperator(label)
-        setCurrent(1)
-        setDisplay("0")
-    } else if (label === "=") {
+            const newValues = [...prev];
+            newValues[current] = parseFloat(newDisplay);
+            return newValues;
+        })
+    }
+
+    const addOperator = (label: string) => {
+        setOperator(label);
+        setCurrent(1);
+        setDisplay("0");
+    }
+
+    const calculateResult = () => {
         if (operator) {
             let result = 0
             switch (operator) {
@@ -46,16 +63,13 @@ export default function Calculator() {
                     result = values[1] !== 0 ? values[0] / values[1] : NaN
                     break
             }
+
             setValues([result, 0])
             setCurrent(0)
             setOperator(null)
             setDisplay(isNaN(result) ? "Erro" : result.toString())
         }
-    } else if (label === "C") {
-        clearDisplay()
     }
-};
-
 
     return (
         <div className="justify flex">
@@ -65,25 +79,26 @@ export default function Calculator() {
                     <Display value={display} />
                 </div>
                 <div className="col-span-3">
-                    <ClearEqualsButton label="C" onClick={handleClick} />
+                    <ClearEqualsButton label="C" onClick={clearDisplay} />
                 </div>
-                <ClearEqualsButton label="=" onClick={handleClick} /> 
-                <Button label="7" onClick={handleClick} />
-                <Button label="8" onClick={handleClick} />
-                <Button label="9" onClick={handleClick} />
-                <OperatorsButton label="+" onClick={handleClick} /> 
-                <Button label="4" onClick={handleClick} />
-                <Button label="5" onClick={handleClick} />
-                <Button label="6" onClick={handleClick} />
-                <OperatorsButton label="-" onClick={handleClick} /> 
-                <Button label="1" onClick={handleClick} />
-                <Button label="2" onClick={handleClick} />
-                <Button label="3" onClick={handleClick} />
-                <OperatorsButton label="*" onClick={handleClick} />
+                <ClearEqualsButton label="=" onClick={calculateResult} /> 
+                <Button label="7" onClick={addNumber} />
+                <Button label="8" onClick={addNumber} />
+                <Button label="9" onClick={addNumber} />
+                <OperatorsButton label="+" onClick={addOperator} /> 
+                <Button label="4" onClick={addNumber} />
+                <Button label="5" onClick={addNumber} />
+                <Button label="6" onClick={addNumber} />
+                <OperatorsButton label="-" onClick={addOperator} /> 
+                <Button label="1" onClick={addNumber} />
+                <Button label="2" onClick={addNumber} />
+                <Button label="3" onClick={addNumber} />
+                <OperatorsButton label="*" onClick={addOperator} />
                 <div className="bg-black rounded"></div> 
-                <Button label="0" onClick={handleClick} />
-                <Button label="." onClick={handleClick} />
-                <OperatorsButton label="/" onClick={handleClick} />   
+                <Button label="0" onClick={addNumber} />
+                <Button label="." onClick={addNumber} />
+
+                <OperatorsButton label="/" onClick={addOperator} />   
             </div>
         </div>
     );
