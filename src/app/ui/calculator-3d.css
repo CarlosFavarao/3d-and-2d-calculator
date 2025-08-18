@@ -13,7 +13,7 @@
 
 .front.side {
     transform: translateZ(62px);
-    background-color: darkgray;
+    background-color: rgb(53, 53, 53);
 }
 
 .back.side {
@@ -45,19 +45,19 @@
     width: 120px;
 }
 
-@keyframes rotate {
+/* @keyframes rotate {
     0% { transform: rotateX(10deg)   rotateY(0deg)   translateY(100px) ;}
     25% { transform: rotateX(10deg)  rotateY(90deg)  translateY(-100px);}
     50% { transform: rotateX(10deg)  rotateY(180deg) translateY(100px) ;}
     75% { transform: rotateX(10deg)  rotateY(270deg) translateY(-100px);}
     100% { transform: rotateX(10deg) rotateY(360deg) translateY(100px) ;}
-}
+} */
 
 /* @keyframes rotate {
     0% { transform: rotateX(0deg) rotateY(0deg) ;}
     100% { transform: rotateX(0deg) rotateY(0deg) ;}
 } */
 
-.container {
+/* .container {
     animation: rotate 10s infinite linear;
-}
+} */

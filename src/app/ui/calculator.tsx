@@ -41,9 +41,13 @@ export default function Calculator() {
     }
 
     const addOperator = (label: string) => {
-        setOperator(label);
-        setCurrent(1);
-        setDisplay("0");
+        if (current === 1) {
+            calculateResult();
+        }else {
+            setOperator(label);
+            setCurrent(1);
+            setDisplay("0");
+        }
     }
 
     const calculateResult = () => {
