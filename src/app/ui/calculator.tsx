@@ -23,30 +23,36 @@ export default function Calculator() {
         }
 
         if (display === "Erro") {
-            clearDisplay();
-            setValues([Number(label), 0]);
-            setDisplay(label);
-            setCurrent(0);
-            return;
+            clearDisplay()
+            setValues([Number(label), 0])
+            setDisplay(label)
+            setCurrent(0)
+            return
         }
 
-        const newDisplay = (display === "0" && label !== ".") ? label : display + label;
-        setDisplay(newDisplay);
+        let newDisplay
+        if( display === "0" && label !== ".") {
+            newDisplay = label
+        } else {
+            newDisplay = display + label
+        }
+
+        setDisplay(newDisplay)
 
         setValues(prev => {
-            const newValues = [...prev];
-            newValues[current] = parseFloat(newDisplay);
-            return newValues;
+            const newValues = [...prev]
+            newValues[current] = parseFloat(newDisplay)
+            return newValues
         })
     }
 
     const addOperator = (label: string) => {
         if (current === 1) {
-            calculateResult();
+            calculateResult()
         }else {
-            setOperator(label);
-            setCurrent(1);
-            setDisplay("0");
+            setOperator(label)
+            setCurrent(1)
+            setDisplay("0")
         }
     }
 
